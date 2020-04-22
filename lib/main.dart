@@ -26,7 +26,6 @@ class _HomePageState extends State<HomePage> {
           AssetImage('assets/images/a2.jpeg'),
           AssetImage('assets/images/a3.jpg'),
         ],
-        autoplay: false,
         animationCurve: Curves.fastOutSlowIn,
         animationDuration: Duration(milliseconds: 1000),
         dotSize: 4.0,

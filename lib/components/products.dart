@@ -1,3 +1,4 @@
+import 'package:antiqueecom/pages/products_details.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class _ProductsState extends State<Products> {
     return GridView.builder(
         itemCount: product_list.length,
         gridDelegate:
-            SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
         itemBuilder: (BuildContext context, int index) {
           return Single_product(
             product_name: product_list[index]['name'],
@@ -69,11 +70,10 @@ class Single_product extends StatelessWidget {
   final product_oldprice;
   final product_price;
 
-  Single_product(
-      {this.product_name,
-      this.product_picture,
-      this.product_oldprice,
-      this.product_price});
+  Single_product({this.product_name,
+    this.product_picture,
+    this.product_oldprice,
+    this.product_price});
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +82,15 @@ class Single_product extends StatelessWidget {
           tag: product_name,
           child: Material(
             child: InkWell(
-                onTap: () {},
+                onTap: () =>
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) =>
+                        (
+                            ProductDetails(product_detail_name: product_name,
+                              product_detail_oldprice: product_oldprice,
+                              product_detail_price: product_price,
+                              product_detail_picture: product_picture,
+                            )))),
                 child: GridTile(
                   footer: Container(
                     color: Colors.white70,
