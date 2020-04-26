@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "566147257469",
+    "firebase_url": "https://antique-91fe6.firebaseio.com",
+    "project_id": "antique-91fe6",
+    "storage_bucket": "antique-91fe6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:566147257469:android:a0150d02f69ee486978d14",
+        "android_client_info": {
+          "package_name": "com.example.antiqueecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "566147257469-c3a9p6voop3v6nim4ofbdc0hkk2r2v6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.antiqueecom",
+            "certificate_hash": "4542544969e7ea905fc9f9954242638ecbf2a468"
+          }
+        },
+        {
+          "client_id": "566147257469-snhbfij7095qaodrf79loc23c7h7qqho.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQdBOE42RLWicj3GsSxsRA6BBmQsHNhkM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "566147257469-snhbfij7095qaodrf79loc23c7h7qqho.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

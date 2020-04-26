@@ -10,25 +10,30 @@ class HorizontalList extends StatelessWidget {
         scrollDirection: Axis.horizontal,
         children: <Widget>[
           Category(
-            image_location: 'assets/images/categories/clock.jpg',
+            image_location: 'assets/images/categories/clockicon.png',
             image_caption: 'Clock',
           ),
           Category(
-            image_location: 'assets/images/categories/lamp.png',
+            image_location: 'assets/images/categories/lampIcon.png',
             image_caption: 'Lamp',
           ),
           Category(
-            image_location: 'assets/images/categories/telephone.jpg',
+            image_location: 'assets/images/categories/telephoneIcon.png',
             image_caption: 'Telephone',
           ),
           Category(
-            image_location: 'assets/images/categories/utinsils.jpg',
+            image_location: 'assets/images/categories/VaseIcon.png',
             image_caption: 'Utensils',
           ),
           Category(
-            image_location: 'assets/images/categories/furniture.png',
+            image_location: 'assets/images/categories/furnitureIcon.png',
             image_caption: 'Furniture',
           ),
+          Category(
+            image_location: 'assets/images/categories/PaintingIcon.png',
+            image_caption: 'Paintings',
+          ),
+
         ],
       ),
     );

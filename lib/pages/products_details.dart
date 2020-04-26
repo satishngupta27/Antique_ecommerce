@@ -1,5 +1,6 @@
-import 'package:antiqueecom/main.dart';
 import 'package:flutter/material.dart';
+
+import 'home.dart';
 
 
 class ProductDetails extends StatefulWidget {
@@ -46,7 +47,8 @@ class _ProductDetailsState extends State<ProductDetails> {
             child: GridTile(
               child: Container(
                 color: Colors.white70,
-                child: Image.asset(widget.product_detail_picture),
+                child: Image.asset(
+                  widget.product_detail_picture, fit: BoxFit.fill,),
               ),
               footer: Container(
                 color: Colors.white70,
@@ -199,7 +201,15 @@ class _SimiliarProductsState extends State<SimiliarProducts> {
     return GridView.builder(
         itemCount: product_list.length,
         gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+          childAspectRatio: MediaQuery
+              .of(context)
+              .size
+              .width /
+              (MediaQuery
+                  .of(context)
+                  .size
+                  .height / 1.1),),
         itemBuilder: (BuildContext context, int index) {
           return Similar_Single_product(
             product_name: product_list[index]['name'],
@@ -258,7 +268,7 @@ class Similar_Single_product extends StatelessWidget {
                   ),
                   child: Image.asset(
                     product_picture,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 )),
           )),

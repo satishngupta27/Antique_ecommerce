@@ -1,3 +1,4 @@
+import 'package:antiqueecom/components/cart_product.dart';
 import 'package:flutter/material.dart';
 
 class Cart extends StatefulWidget {
@@ -21,24 +22,31 @@ class _CartState extends State<Cart> {
               onPressed: () {}),
         ],
       ),
+      body: Cart_Products(),
       bottomNavigationBar: Container(
         color: Colors.white,
         child: Row(
           children: <Widget>[
             Expanded(
                 child: ListTile(
-              title: Text('Total'),
-              trailing: Text('\$900'),
-            )),
+                  title: Text('Total'),
+                  subtitle: Text('\$900'),
+                )),
             Expanded(
                 child: MaterialButton(
-              onPressed: () {},
-              child: Text(
-                'Check Out',
-                style: TextStyle(color: Colors.white),
-              ),
-              color: Colors.red,
-            ))
+                  height: 70.0,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15.0)),
+                  onPressed: () {},
+                  child: Text(
+                    'Check Out',
+
+                    style: TextStyle(fontSize: 16.0,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                  color: Colors.red,
+                ))
           ],
         ),
       ),

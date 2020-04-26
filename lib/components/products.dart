@@ -52,7 +52,15 @@ class _ProductsState extends State<Products> {
     return GridView.builder(
         itemCount: product_list.length,
         gridDelegate:
-        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2),
+        SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,
+          childAspectRatio: MediaQuery
+              .of(context)
+              .size
+              .width /
+              (MediaQuery
+                  .of(context)
+                  .size
+                  .height / 1.1),),
         itemBuilder: (BuildContext context, int index) {
           return Single_product(
             product_name: product_list[index]['name'],
@@ -92,26 +100,28 @@ class Single_product extends StatelessWidget {
                               product_detail_picture: product_picture,
                             )))),
                 child: GridTile(
+
                   footer: Container(
-                    color: Colors.white70,
-                      child: Row(
+
+
+                      color: Colors.white70,
+                      child: Column(
                         children: <Widget>[
 
-                          Expanded(child: Text(product_name,
-                            style: TextStyle(fontWeight: FontWeight.bold,
-                                fontSize: 16.0),)),
+                          Text(product_name,
+                            style: TextStyle(fontWeight: FontWeight.w300,
+                                fontSize: 16.0),),
 
-                          Padding(
-                            padding: const EdgeInsets.fromLTRB(0, 0, 4, 0),
-                            child: Text('\$${product_price}',
+                          Text('\$${product_price}',
                               style: TextStyle(color: Colors.red),),
-                          )
+
                         ],
                       )
                   ),
                   child: Image.asset(
+
                     product_picture,
-                    fit: BoxFit.cover,
+                    fit: BoxFit.fill,
                   ),
                 )),
           )),
