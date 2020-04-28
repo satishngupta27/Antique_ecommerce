@@ -23,6 +23,7 @@ dependencies:
   shared_preferences: ^0.5.7
   fluttertoast: ^4.0.1
   carousel_pro: ^1.0.0
+  firebase_database: ^3.1.5
   flutter:
     sdk: flutter
 

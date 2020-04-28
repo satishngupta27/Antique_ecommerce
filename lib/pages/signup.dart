@@ -14,6 +14,7 @@ class _SignupState extends State<Signup> {
   TextEditingController _confirmPasswordController = TextEditingController();
   TextEditingController _nameTextController = TextEditingController();
   String gender;
+  bool hidepass = true;
   String groupValue = 'male';
   bool loading = false;
 
@@ -64,6 +65,7 @@ class _SignupState extends State<Signup> {
                         child: TextFormField(
                           controller: _nameTextController,
                           decoration: InputDecoration(
+                            border: InputBorder.none,
                             hintText: "Name",
                             icon: Icon(Icons.person_outline),
                           ),
@@ -121,6 +123,7 @@ class _SignupState extends State<Signup> {
                         child: TextFormField(
                           controller: _emailTextController,
                           decoration: InputDecoration(
+                            border: InputBorder.none,
                             hintText: "Email",
                             icon: Icon(Icons.alternate_email),
                           ),
@@ -147,20 +150,30 @@ class _SignupState extends State<Signup> {
                       elevation: 0.0,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 12.0),
-                        child: TextFormField(
-                          controller: _passwordTextController,
-                          decoration: InputDecoration(
-                            hintText: "Password",
-                            icon: Icon(Icons.lock_outline),
+                        child: ListTile(
+                          title: TextFormField(
+                            obscureText: hidepass,
+                            controller: _passwordTextController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Password",
+                              icon: Icon(Icons.lock_outline),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Password field cannot be empty";
+                              } else if (value.length < 6) {
+                                return "the password must be atleast 6 characters";
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Password field cannot be empty";
-                            } else if (value.length < 6) {
-                              return "the password must be atleast 6 characters";
-                            }
-                            return null;
-                          },
+                          trailing: IconButton(
+                              icon: Icon(Icons.remove_red_eye), onPressed: () {
+                            setState(() {
+                              hidepass = false;
+                            });
+                          }),
                         ),
                       ),
                     ),
@@ -173,20 +186,33 @@ class _SignupState extends State<Signup> {
                       elevation: 0.0,
                       child: Padding(
                         padding: const EdgeInsets.only(left: 12.0),
-                        child: TextFormField(
-                          controller: _confirmPasswordController,
-                          decoration: InputDecoration(
-                            hintText: "Confirm Password",
-                            icon: Icon(Icons.lock_outline),
+                        child: ListTile(
+                          title: TextFormField(
+                            obscureText: hidepass,
+                            controller: _confirmPasswordController,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              hintText: "Confirm Password",
+                              icon: Icon(Icons.lock_outline),
+                            ),
+                            validator: (value) {
+                              if (value.isEmpty) {
+                                return "Password field cannot be empty";
+                              } else if (value.length < 6) {
+                                return "the password must be atleast 6 characters";
+                              } else
+                              if (_confirmPasswordController.text != value) {
+                                return " the password do not match";
+                              }
+                              return null;
+                            },
                           ),
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Password field cannot be empty";
-                            } else if (value.length < 6) {
-                              return "the password must be atleast 6 characters";
-                            }
-                            return null;
-                          },
+                          trailing: IconButton(
+                              icon: Icon(Icons.remove_red_eye), onPressed: () {
+                            setState(() {
+                              hidepass = false;
+                            });
+                          }),
                         ),
                       ),
                     ),
@@ -195,10 +221,12 @@ class _SignupState extends State<Signup> {
                     padding: const EdgeInsets.all(8.0),
                     child: Material(
                       borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.blue,
+                      color: Colors.red,
                       elevation: 0.0,
                       child: MaterialButton(
-                        onPressed: () {},
+                        onPressed: () {
+
+                        },
                         minWidth: MediaQuery.of(context).size.width,
                         child: Text(
                           "Sign Up",
@@ -243,8 +271,10 @@ class _SignupState extends State<Signup> {
     setState(() {
       if (e == "male") {
         groupValue = e;
+        gender = e;
       } else if (e == 'female') {
         groupValue = e;
+        gender = e;
       }
     });
   }
