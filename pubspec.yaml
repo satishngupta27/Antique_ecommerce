@@ -55,6 +55,7 @@ flutter:
     - assets/images/a2.jpeg
     - assets/images/a3.jpg
     - assets/images/categories/
+    - assets/images/background/
     - assets/images/products/achair.jpg
     - assets/images/products/aclock.png
     - assets/images/products/turntables.png

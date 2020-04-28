@@ -1,8 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:antiqueecom/pages/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'home.dart';
@@ -13,8 +12,11 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
-  final GoogleSignIn googleSignIn = new GoogleSignIn();
+
   final FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  final _formkey = GlobalKey<FormState>();
+  TextEditingController _emailTextController = TextEditingController();
+  TextEditingController _passwordTextController = TextEditingController();
   SharedPreferences preferences;
   bool loading = false;
   bool isLoggedIn = false;
@@ -28,8 +30,8 @@ class _LoginState extends State<Login> {
     setState(() {
       loading = true;
     });
-    preferences = await SharedPreferences.getInstance();
-    isLoggedIn = await googleSignIn.isSignedIn();
+
+
     if (isLoggedIn) {
       Navigator.pushReplacement(
           context, MaterialPageRoute(builder: (context) => HomePage()));
@@ -39,53 +41,155 @@ class _LoginState extends State<Login> {
     });
   }
 
-  Future handleSignIn() async {
+  /*Future handleSignIn() async {
     preferences = await SharedPreferences.getInstance();
     setState(() {
       loading = true;
     });
-    GoogleSignInAccount googleUser = await googleSignIn.signIn();
-    GoogleSignInAuthentication googleSignInAuthentication =
-        await googleUser.authentication;
-    AuthCredential credential = GoogleAuthProvider.getCredential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
-    FirebaseUser firebaseUser =
-        (await firebaseAuth.signInWithCredential(credential)).user;
-    if (firebaseUser != null) {
-      final QuerySnapshot result = await Firestore.instance
-          .collection("users")
-          .where("id", isEqualTo: firebaseUser.uid)
-          .getDocuments();
-      final List<DocumentSnapshot> documents = result.documents;
-      if (documents.length == 0) {
-        //insert the user to our collection
-        Firestore.instance
-            .collection('users')
-            .document(firebaseUser.uid)
-            .setData({
-          "id": firebaseUser.uid,
-          "username": firebaseUser.displayName,
-          "profilePicture": firebaseUser.photoUrl
-        });
-        await preferences.setString("id", firebaseUser.uid);
-        await preferences.setString("username", firebaseUser.displayName);
-        await preferences.setString("photoUrl", firebaseUser.displayName);
-      } else {
-        await preferences.setString("id", documents[0]["id"]);
-        await preferences.setString("username", documents[0]["username"]);
-        await preferences.setString("photoUrl", documents[0]["photoUrl"]);
-      }
-      Fluttertoast.showToast(msg: "Login was Succesfull");
-      setState(() {
-        loading = false;
-      });
-    }
-  }
+
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Stack(
+        children: <Widget>[
+          Image.asset(
+            'assets/images/background/back.jpeg',
+            fit: BoxFit.fill,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 80.0),
+            child: Container(
+              alignment: Alignment.topCenter,
+              child: Text(
+                "Antique",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.black.withOpacity(0.5),
+            height: double.infinity,
+            width: double.infinity,
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 200.0),
+            child: Center(
+              key: _formkey,
+              child: Form(child: ListView(
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white.withOpacity(0.5),
+                      elevation: 0.0,
+
+
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: TextFormField(
+                          controller: _emailTextController,
+                          decoration: InputDecoration(
+                            hintText: "Email",
+                            icon: Icon(Icons.email),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              Pattern pattern =
+                                  r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+                              RegExp regex = new RegExp(pattern);
+                              if (!regex.hasMatch(value))
+                                return 'Please make sure your email address is valid';
+                              else
+                                return null;
+                            }
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.white.withOpacity(0.5),
+                      elevation: 0.0,
+
+
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 12.0),
+                        child: TextFormField(
+                          controller: _passwordTextController,
+                          decoration: InputDecoration(
+                            hintText: "Password",
+                            icon: Icon(Icons.lock_outline),
+                          ),
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Password field cannot be empty";
+                            }
+                            else if (value.length < 6) {
+                              return "the password must be atleast 6 characters";
+                            }
+                            return null;
+                          },
+
+                        ),
+                      ),
+                    ),
+                  ),
+                  Padding(padding: const EdgeInsets.all(8.0),
+                    child: Material(
+                      borderRadius: BorderRadius.circular(20.0),
+                      color: Colors.blue,
+                      elevation: 0.0,
+                      child: MaterialButton(onPressed: () {},
+                        minWidth: MediaQuery
+                            .of(context)
+                            .size
+                            .width,
+                        child: Text("Login", style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),),),
+                    ),),
+                  Padding(padding: const EdgeInsets.all(8.0),
+                    child: Text("Forget Password", textAlign: TextAlign.center,
+                      style: TextStyle(color: Colors.white),),),
+                  Padding(padding: const EdgeInsets.all(8.0),
+                    child: Center(
+                        child: InkWell(
+                          onTap: () {
+                            Navigator.push(context, MaterialPageRoute(
+                                builder: (context) => Signup()));
+                          },
+                          child: Text('Sign Up', textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 16.0, color: Colors.white),),
+                        )
+                    ),)
+                ],
+              )),
+            ),
+          ),
+
+          Visibility(
+              visible: loading ?? true,
+              child: Container(
+                color: Colors.white.withOpacity(0.7),
+                child: CircularProgressIndicator(
+                    valueColor: AlwaysStoppedAnimation<Color>(Colors.red)),
+              ))
+        ],
+      ),
+
+    );
   }
 }
